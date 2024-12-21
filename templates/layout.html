@@ -1,18 +1,19 @@
-{% extends "base.html" %}
-{% block content %}
-  <header>
-    {% block header %}
-    <h1>Bem-vindo ao Meu Site</h1>
+{% extends "base.html" %} {% load static %} {% block content %}
+<header>
+  {% block header %}
+  <!-- Cabeçalho padrão -->
+  {% include "partials/header.html" %} {% endblock %}
+</header>
+<main>
+  {% block main_content %}
+  <!-- Conteúdo principal padrão -->
+  <p>Conteúdo principal genérico.</p>
   {% endblock %}
-  </header>
-  <main>
-    {% block main_content %}
-      <p>Este é o conteúdo principal.</p>
-    {% endblock %}
-  </main>
-  <footer>
-    {% block footer %}
-      <p>© 2024 Meu Site. Todos os direitos reservados.</p>
-    {% endblock %}
-  </footer>
+</main>
+<footer>
+  {% block footer %}
+  <!-- Rodapé padrão -->
+  <p>© 2024 Meu Site. Todos os direitos reservados.</p>
+  {% endblock %}
+</footer>
 {% endblock %}

@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+import os
 
 
 class User(AbstractUser):
@@ -8,6 +10,14 @@ class User(AbstractUser):
     full_name = models.CharField(
         max_length=255, verbose_name=_("Full Name"), blank=True, null=True
     )
+    profile = models.ImageField(upload_to="profile/", blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if self.profile_img:
+            filename, file_extension = os.path.splitext(self.profile_img.name)
+            timestamp = int(timezone.now().timestamp())
+            self.profile_img.name = f"profile_{timestamp}{file_extension}"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.full_name or self.username
@@ -28,5 +38,9 @@ class ActionLog(models.Model):
     action_date = models.DateTimeField(auto_now_add=True, verbose_name=_("Action Date"))
 
     def __str__(self):
-        user_info = self.user.username if self.user else "Usuário Desconhecido"
-        return f"Ação por {user_info}: {self.action_text}"
+        user_info = self.user.username if self.user else "Unknown User"
+        if not self.action_text:
+            action_text = ""
+        else:
+            action_text = self.action_text
+        return f"Action by {user_info}: {action_text}"

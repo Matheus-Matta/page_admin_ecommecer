@@ -1,4 +1,5 @@
 from .models import ActionLog
+from django.shortcuts import redirect
 
 
 class LoggableMixin:
@@ -22,3 +23,14 @@ class LoggableMixin:
                 employee=getattr(self, "employee", None),
                 action_text=f"{action_text} - [{self.__class__.__name__}]",
             )
+
+
+class RedirectAuthenticatedMixin:
+    """Mixin que redireciona usuários autenticados para a página principal."""
+
+    redirect_authenticated_url = "/"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(self.redirect_authenticated_url)
+        return super().dispatch(request, *args, **kwargs)
