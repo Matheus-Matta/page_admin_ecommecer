@@ -80,6 +80,7 @@
               action="{% url 'login' %}"
               method="POST"
             >
+              {% csrf_token %}
               <!--begin::Cabeçalho-->
               <div class="text-center mb-11">
                 <!--begin::Título-->
@@ -175,6 +176,15 @@
               <!--end::suporte-->
             </form>
             <!--end::Formulário-->
+
+            <!--begin::Messages-django-->
+            {% if messages %}
+            <div class="text-danger text-center pt-3">
+              {% for message in messages %} {% if message.tags == 'error' %}
+              {{message}} {% endif %} {% endfor %}
+            </div>
+            {% endif %}
+            <!--end::Messages-django-->
           </div>
           <!--end::Wrapper-->
         </div>
@@ -190,4 +200,7 @@
   </div>
   <!--end::Autenticação - Entrar-->
 </div>
+{% endblock %} {% block js %} {{ block.super }}
+<script src="{% static 'assets/js/custom/Pagelogin.js' %}"></script>
+
 {% endblock %}
