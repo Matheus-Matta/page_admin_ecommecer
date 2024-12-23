@@ -72,6 +72,17 @@
       rel="stylesheet"
       type="text/css"
     />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css"
+      crossorigin
+    />
+    <link
+      href="{% static 'assets/css/custom/ckeditor.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
     {% endblock %}
   </head>
   {% block content %}content{% endblock %} {% block js %}
@@ -97,7 +108,17 @@
   <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
-  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/balloon/ckeditor.js"></script>
+
+  <script
+    src="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.umd.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://cdn.ckeditor.com/ckeditor5/44.1.0/translations/pt-br.umd.js"
+    crossorigin
+  ></script>
+  <script src="{% static 'assets/js/custom/ckeditor.js' %}"></script>
+
   <script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
   <!-- Begin::Script config -->
   <script src="{% static 'assets/js/custom/config/theme.js' %}"></script>
