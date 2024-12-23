@@ -1,5 +1,94 @@
-{% extends "layout.html" %} {% load static %} {%block title%} PáginaInicial
-{%endblock%} {%block main_content%}
-<h2>Conteúdo da Página Inicial</h2>
-<p>Este é o conteúdo exclusivo da página inicial.</p>
-{% endblock %} 
+{% extends "layout.html" %} {% load static %} {% block title %}Painel | Maxxx
+Moveis{% endblock %} {% block main_content %}
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+  <!-- Verifique se há conteúdo -->
+  <div id="content-view" class="p-5">
+    {% if content %}
+    <div id="saved-content">{{ content|safe }}</div>
+    <button id="edit-button" class="btn btn-primary mt-4">
+      Editar Conteúdo
+    </button>
+    {% else %}
+    <p>Não há conteúdo disponível. Clique abaixo para começar a criar.</p>
+    <button id="edit-button" class="btn btn-primary">Comece a Criar</button>
+    {% endif %}
+  </div>
+
+  <!-- Área do editor (inicialmente oculta) -->
+  <div id="editor-section" class="d-none p-5">
+    <div id="editor-container"></div>
+    <button id="save-button" class="btn btn-success mt-4">
+      Salvar Conteúdo
+    </button>
+    <button id="cancel-button" class="btn btn-secondary mt-4">Cancelar</button>
+  </div>
+</div>
+{% endblock %} {% block js %} {{ block.super }}
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const editButton = document.getElementById("edit-button");
+    const saveButton = document.getElementById("save-button");
+    const cancelButton = document.getElementById("cancel-button");
+    const contentView = document.getElementById("content-view");
+    const editorSection = document.getElementById("editor-section");
+    let editorInstance;
+
+    // Mostrar o editor ao clicar em "Editar" ou "Comece a Criar"
+    editButton.addEventListener("click", () => {
+      contentView.classList.add("d-none");
+      editorSection.classList.remove("d-none");
+
+      // Inicializar CKEditor e carregar conteúdo existente, se disponível
+      const initialContent = document.getElementById("saved-content")
+        ? document.getElementById("saved-content").innerHTML
+        : "";
+      ClassicEditor.create(document.getElementById("editor-container"), {
+        placeholder: "Edite ou crie seu conteúdo aqui...",
+      }).then((editor) => {
+        editorInstance = editor;
+        editor.setData(initialContent);
+      });
+    });
+
+    // Cancelar a edição
+    cancelButton.addEventListener("click", () => {
+      editorInstance.destroy();
+      editorSection.classList.add("d-none");
+      contentView.classList.remove("d-none");
+    });
+
+    // Salvar conteúdo ao clicar em "Salvar"
+    saveButton.addEventListener("click", async () => {
+      const content = editorInstance.getData();
+      try {
+        await saveContent(content);
+        alert("Conteúdo salvo com sucesso!");
+        location.reload(); // Recarregar página para mostrar o conteúdo atualizado
+      } catch (error) {
+        alert("Erro ao salvar o conteúdo. Tente novamente.");
+      }
+    });
+
+    // Função para salvar conteúdo no backend
+    async function saveContent(content) {
+      const csrfToken = getCsrfToken();
+      const response = await fetch("{% url 'save_content' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        body: JSON.stringify({ content }),
+      });
+      if (!response.ok) throw new Error("Erro ao salvar o conteúdo.");
+    }
+
+    // Função para obter o token CSRF
+    function getCsrfToken() {
+      const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]");
+      return csrfToken ? csrfToken.value : "";
+    }
+  });
+</script>
+{% endblock %}

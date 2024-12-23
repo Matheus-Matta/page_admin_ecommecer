@@ -13,10 +13,10 @@ class User(AbstractUser):
     profile = models.ImageField(upload_to="profile/", blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if self.profile_img:
-            filename, file_extension = os.path.splitext(self.profile_img.name)
+        if self.profile:
+            filename, file_extension = os.path.splitext(self.profile.name)
             timestamp = int(timezone.now().timestamp())
-            self.profile_img.name = f"profile_{timestamp}{file_extension}"
+            self.profile.name = f"profile_{timestamp}{file_extension}"
         super().save(*args, **kwargs)
 
     def __str__(self):
