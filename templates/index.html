@@ -1,5 +1,110 @@
-{% extends "layout.html" %} {% load static %} {%block title%} PáginaInicial
-{%endblock%} {%block main_content%}
-<h2>Conteúdo da Página Inicial</h2>
-<p>Este é o conteúdo exclusivo da página inicial.</p>
-{% endblock %} 
+{% extends "layout.html" %} {% load static %} {% block title %}Painel | Maxxx
+Moveis{% endblock %} 
+{% block header_title %}Home{% endblock %}
+{% block main_content %}
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+  <!--begin::Content wrapper-->
+  <div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+      <!--begin::Toolbar container-->
+      <div
+        id="kt_app_toolbar_container"
+        class="app-container container-xxl d-flex flex-stack justify-content-end"
+      >
+        <!--begin::Actions-->
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+          <!--begin::Primary button-->
+          <a
+            id="edit-button"
+            href="#"
+            class="btn btn-sm btn-flex btn-secondary fw-bold"
+            data-kt-menu-trigger="click"
+            data-kt-menu-placement="bottom-end"
+          >
+            Editar</a
+          >
+          <!--end::Primary button-->
+        </div>
+        <!--end::Actions-->
+      </div>
+      <!--end::Toolbar container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+      <!--begin::Content container-->
+      <div id="kt_app_content_container" class="app-container container-xxl">
+        <!--begin::About card-->
+        <div class="card">
+          <!--begin::Body-->
+          <div class="card-body p-lg-17">
+            <!-- Verifique se há conteúdo -->
+            <div id="content-view">
+              {% if content %}
+              <div id="saved-content">{{ content|safe }}</div>
+
+              {% else %}
+              <div id="saved-content">
+                <div class="d-flex flex-center flex-column">
+                  <img
+                    class="mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
+                    src="{% static 'assets/media/illustrations/sketchy-1/17.png' %}"
+                    alt="sketchy ilustrations"
+                  />
+                </div>
+                <p class="text-muted fs-2 text-center">
+                  Não há conteúdo disponível.
+                </p>
+                <div class="d-flex flex-center flex-column">
+                  <p class="text-muted fs-2 text-center">
+                    Comece a Criar ! Clique no botão abaixo
+                  </p>
+                  <button
+                    style="margin: 0 auto"
+                    id="edit-button"
+                    class="btn btn-primary text-center"
+                  >
+                    Comece a Criar
+                  </button>
+                </div>
+              </div>
+                {% endif %}
+            </div>
+
+              <!-- Área do editor (inicialmente oculta) -->
+              <div id="editor-section" class="d-none">
+                <div
+                  class="editor-container editor-container_balloon-editor editor-container_include-style editor-container_include-word-count"
+                  id="editor-container"
+                >
+                  <div style="min-width: 100%" class="editor-container__editor">
+                    <div style="min-width: 100%" id="editor"></div>
+                  </div>
+                  <div
+                    class="editor_container__word-count"
+                    id="editor-word-count"
+                  ></div>
+                </div>
+                <button id="save-button" class="btn btn-success btn-sm mt-4">
+                  Salvar Conteúdo
+                </button>
+                <button id="cancel-button" class="btn btn-secondary btn-sm mt-4">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+            <!--end::Body-->
+          </div>
+          <!--end::About card-->
+        </div>
+        <!--end::Content container-->
+      </div>
+      <!--end::Content-->
+    </div>
+    <!--end::Content wrapper-->
+  </div>
+
+  <div class="app-main flex-column flex-row-fluid" id="kt_app_main"></div>
+  {% endblock %}
+</div>

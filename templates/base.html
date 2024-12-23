@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="dark">
+<html lang="pt-br" data-bs-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,34 +67,62 @@
       rel="stylesheet"
       type="text/css"
     />
+    <link
+      href="{% static 'assets/css/custom/header.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css"
+      crossorigin
+    />
+    <link
+      href="{% static 'assets/css/custom/ckeditor.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
     {% endblock %}
   </head>
-  <body>
-    {% block content %}content{% endblock %} {% block js %}
-    <!-- Adicione aqui seus scripts JavaScript -->
-    <script>
-      var hostUrl = "assets/";
-    </script>
-    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
-    <script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
-    <!--end::Global Javascript Bundle-->
+  {% block content %}content{% endblock %} {% block js %}
+  <!-- Adicione aqui seus scripts JavaScript -->
+  <script>
+    var hostUrl = "assets/";
+  </script>
+  <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+  <script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
+  <script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
+  <!--end::Global Javascript Bundle-->
 
-    <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
-    <script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+  <!--begin::Vendors Javascript(used for this page only)-->
+  <script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
+  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
 
-    {% endblock %}
-  </body>
+  <script
+    src="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.umd.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://cdn.ckeditor.com/ckeditor5/44.1.0/translations/pt-br.umd.js"
+    crossorigin
+  ></script>
+  <script src="{% static 'assets/js/custom/ckeditor.js' %}"></script>
+
+  <script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+  <!-- Begin::Script config -->
+  <script src="{% static 'assets/js/custom/config/theme.js' %}"></script>
+  <!-- End::Script config -->
+
+  {% endblock %}
 </html>
