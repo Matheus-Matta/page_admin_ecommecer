@@ -16,9 +16,7 @@
     <!--begin::Page-->
     <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
       <!--begin::Header-->
-      {% block header %}
-          {% include "partials/header.html" %}
-      {% endblock %}
+      {% block header %} {% include "partials/header.html" %} {% endblock %}
       <!--end::Header-->
       <!--begin::Wrapper-->
       <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
@@ -38,13 +36,14 @@
     <!--end::Page-->
   </div>
 </body>
-  {% endblock %} {% block js %} {{ block.super }}
-  <!-- Begin::Script Header -->
-  <script src="{% static 'assets/js/custom/header/search.js' %}"></script>
-  <!-- End::Script Header -->
+{% endblock %} {% block js %} {{ block.super }}
+<!-- Begin::Script Header -->
+<script src="{% static 'assets/js/custom/header/search.js' %}"></script>
+<!-- End::Script Header -->
 
-  <!-- Begin::Script Sidebar  -->
-  <script src="{% static 'assets/js/custom/config/activeSidebar.js' %}"></script>
-  <!-- end::Script Sidebar  -->
-  {% endblock %}
-</body>
+<!-- Begin::Script Sidebar  -->
+<script src="{% static 'assets/js/custom/config/activeSidebar.js' %}"></script>
+<!-- end::Script Sidebar  -->
+<script src="{% static 'assets/js/custom/funcionario/modalCreate.js' %}"></script>
+<script src="{% static 'assets/js/custom/funcionario/datatable.js' %}"></script>
+{% endblock %}

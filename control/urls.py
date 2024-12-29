@@ -24,6 +24,7 @@ from .views import *
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path("accounts/", include("accounts.urls")),
+    path("employee/", include("employee.urls")),
 ]
 
 if settings.DEBUG:

@@ -93,10 +93,13 @@
   <!--begin::Global Javascript Bundle(mandatory for all pages)-->
   <script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
   <script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
+  <script src="{% static 'assets/js/custom/ckeditor.js' %}"></script>
+  <script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
   <!--end::Global Javascript Bundle-->
 
   <!--begin::Vendors Javascript(used for this page only)-->
   <script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
+  <script src="{% static 'assets/plugins/custom/formrepeater/formrepeater.bundle.js' %}"></script>
   <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
@@ -108,7 +111,13 @@
   <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+  <!-- Biblioteca para exportar em PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
+  <!-- Biblioteca para exportar em Excel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script
     src="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.umd.js"
     crossorigin
@@ -117,9 +126,7 @@
     src="https://cdn.ckeditor.com/ckeditor5/44.1.0/translations/pt-br.umd.js"
     crossorigin
   ></script>
-  <script src="{% static 'assets/js/custom/ckeditor.js' %}"></script>
 
-  <script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
   <!-- Begin::Script config -->
   <script src="{% static 'assets/js/custom/config/theme.js' %}"></script>
   <!-- End::Script config -->

@@ -73,6 +73,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "accounts.middleware.ActionLogMiddleware",
+    'accounts.middleware.ResetSessionTimeoutMiddleware'
 ]
 
 ROOT_URLCONF = "control.urls"
@@ -129,8 +131,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
 
 USE_I18N = True
@@ -164,3 +164,9 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 TIME_ZONE = "America/Sao_Paulo"
+
+LANGUAGE_CODE = "pt-br"
+
+
+SESSION_COOKIE_AGE = 3600 # 1 hora em segundos
+SESSION_SAVE_EVERY_REQUEST = True

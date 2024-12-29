@@ -1,4 +1,3 @@
-from .models import ActionLog
 from django.shortcuts import redirect
 
 
@@ -7,22 +6,19 @@ class LoggableMixin:
     Mixin genérico para registrar logs automaticamente durante o save().
     """
 
-    def save(self, *args, user=None, action_text=None, **kwargs):
+    def log(self, user, action_text, status_code=None):
         """
-        Sobrescreve o método save para registrar logs de alterações.
+        Método genérico para registrar logs de ações realizadas.
         :param user: Instância do usuário que realizou a ação.
         :param action_text: Descrição da ação realizada.
         """
-        # Chama o método save padrão para salvar o modelo
-        super().save(*args, **kwargs)
+        from .models.actionLog import ActionLog
 
-        # Registrar o log
-        if user and action_text:
-            ActionLog.objects.create(
-                user=user,
-                employee=getattr(self, "employee", None),
-                action_text=f"{action_text} - [{self.__class__.__name__}]",
-            )
+        ActionLog.objects.create(
+            user=user,
+            action_text=f"{user.username} - {action_text} - [{self.__class__.__name__}]",
+            status_code=status_code,
+        )
 
 
 class RedirectAuthenticatedMixin:
