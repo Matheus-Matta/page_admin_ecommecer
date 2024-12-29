@@ -1,9 +1,12 @@
 from django.utils.timezone import now
 from .models.actionLog import ActionLog
-from datetime import timedelta
+from django.utils.timezone import now
+from .signals import log_user_session
 from django.utils.timezone import now
 from django.conf import settings
-from django.contrib.sessions.models import Session
+from datetime import timedelta
+from django.shortcuts import redirect
+from .models.UserSessionLog import UserSessionLog
 
 
 class ActionLogMiddleware:
@@ -36,34 +39,34 @@ class ActionLogMiddleware:
         return response
 
 
-class ResetSessionTimeoutMiddleware:
+class SessionExpirationMiddleware:
     """
-    Middleware que reseta o tempo de expiração da sessão se o usuário estiver ativo.
+    Middleware para gerenciar sessões personalizadas.
+    Verifica se a sessão expirou e, caso o usuário esteja ativo, reinicia o tempo de expiração.
     """
+
+    SESSION_TIMEOUT = getattr(
+        settings, "CUSTOM_SESSION_TIMEOUT", 3600
+    )  # 1 hora por padrão
 
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        # Verifica se o usuário está autenticado
         if request.user.is_authenticated:
-            # Recupera a última atividade
             last_activity = request.session.get("last_activity")
 
             if last_activity:
-                # Calcula o tempo desde a última atividade
-                elapsed_time = now() - last_activity
+                from datetime import datetime
 
-                # Verifica se o tempo de inatividade excede o permitido
-                if elapsed_time.total_seconds() > settings.SESSION_COOKIE_AGE:
-                    # Finaliza a sessão
+                last_activity_time = datetime.fromisoformat(last_activity)
+                elapsed_time = now() - last_activity_time
+
+                if elapsed_time.total_seconds() > settings.CUSTOM_SESSION_TIMEOUT:
+                    log_user_session(request, UserSessionLog.ActionChoices.EXPIRED)
                     request.session.flush()
-                else:
-                    # Atualiza o tempo da última atividade
-                    request.session["last_activity"] = now()
-            else:
-                # Define a última atividade na primeira requisição
-                request.session["last_activity"] = now()
+                    return redirect("login")
 
-        response = self.get_response(request)
-        return response
+            request.session["last_activity"] = now().isoformat()
+
+        return self.get_response(request)

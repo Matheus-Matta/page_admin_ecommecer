@@ -74,7 +74,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "accounts.middleware.ActionLogMiddleware",
-    'accounts.middleware.ResetSessionTimeoutMiddleware'
+    "accounts.middleware.SessionExpirationMiddleware",
 ]
 
 ROOT_URLCONF = "control.urls"
@@ -168,5 +168,9 @@ TIME_ZONE = "America/Sao_Paulo"
 LANGUAGE_CODE = "pt-br"
 
 
-SESSION_COOKIE_AGE = 3600 # 1 hora em segundos
-SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = None  # Desativa o comportamento padrão de expiração
+SESSION_SAVE_EVERY_REQUEST = False  # Evita o salvamento automático
+CUSTOM_SESSION_TIMEOUT = 3600  # real tempo de expiração personalizado
+
+
+SESSION_COOKIE_AGE = 60 * 60 * CUSTOM_SESSION_TIMEOUT  # definido para nao cousar bugs

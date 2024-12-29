@@ -18,8 +18,26 @@ class UserSessionLog(models.Model):
     ip_address = models.GenericIPAddressField(
         verbose_name=_("IP Address"), null=True, blank=True
     )
-    location = models.CharField(
-        max_length=255, verbose_name=_("Location"), null=True, blank=True
+    city = models.CharField(
+        max_length=255, verbose_name=_("City"), null=True, blank=True
+    )
+    region = models.CharField(
+        max_length=255, verbose_name=_("Region"), null=True, blank=True
+    )
+    country = models.CharField(
+        max_length=255, verbose_name=_("Country"), null=True, blank=True
+    )
+    latitude = models.CharField(
+        max_length=50, verbose_name=_("Latitude"), null=True, blank=True
+    )
+    longitude = models.CharField(
+        max_length=50, verbose_name=_("Longitude"), null=True, blank=True
+    )
+    isp = models.CharField(
+        max_length=255,
+        verbose_name=_("Internet Service Provider"),
+        null=True,
+        blank=True,
     )
     action = models.CharField(
         max_length=20, choices=ActionChoices.choices, verbose_name=_("Action")
